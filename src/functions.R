@@ -19,6 +19,12 @@ printAllDetail <- function(i){
   print(sbGeneal[numfa==NUMF])
 }
 
+getNUMFAbyTaillMenage <- function(tailleMenage) {
+  sample(nodes[,.N,NUMFA][N==tailleMenage, NUMFA],1)  
+}
+
+
+
 plotFamily <- function(i){
   nodes <- nodes[NUMFA==i,.(id=ID,PRENOM,AGE,SEXE)]
   links <- links[NUMFA==i,.(from=IDFROM,to=IDTO, LIEN)]

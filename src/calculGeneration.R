@@ -1,5 +1,5 @@
 #calcul des générations
-
+source("src/functions.R")
 load("copy.Rdata")
 
 
@@ -44,12 +44,12 @@ calculeGenerations<-function(verbose=FALSE)
   
   famille[1,GEN:=1]
   for (i in 2:famille[, .N]) {
-    i <- 5
+    #i <- 5
     id <- famille[i,ID]
-    #if (verbose==TRUE)
     GENC <- getGenerationConcubin(id)
     GENP  <- getGenerationParent(id)
-    cat(sprintf("Individus : %s\tGénération du concubin : %s et du parent : %s\n", id, GENC, GENP))
+    if (verbose==TRUE)
+      cat(sprintf("Individus : %s\tGénération du concubin : %s et du parent : %s\n", id, GENC, GENP))
     if (!is.na(GENP)){
       famille[i, GEN:=GENP+1]
     } else{
@@ -62,11 +62,12 @@ calculeGenerations<-function(verbose=FALSE)
 }
 
 
-NUMF <- getNUMFAbyTaillMenage(14)
+#32098, 70981
+NUMF <- getNUMFAbyTaillMenage(7)
 
 famille <- nodes[NUMFA==NUMF, ]
 liens <- links[NUMFA==NUMF]
 famille[1,GEN:=1]
-calculeGenerations(verbose = F)
+calculeGenerations(verbose = T)
 plotFamily(NUMF)
 famille
